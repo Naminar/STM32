@@ -2,13 +2,15 @@
 #ifndef STM_MACRO_
 #define STM_MACRO_
 
-//===============================================
+//====================LAB 1===========================
 
 // All unmarked bits of the MODIFYMASK REG register will remain unchanged
 
-#define MODIFY_REG(REG, MODIFYMASK, VALUE)  ( *REG) = ( ( *REG) & ~ ( MODIFYMASK)) | ( ( VALUE) & ( MODIFYMASK) );
+#define MODIFY_REG(REG, MODIFYMASK, VALUE)  ( *(REG)) = ( ( *(REG)) & ~ ( MODIFYMASK)) | ( ( VALUE) & ( MODIFYMASK) );
 
-#define COMPARE_REG_AND_MASK(REG, COMPARISON_MASK) ( ( *REG) & ( COMPARISON_MASK)) ^ ( COMPARISON_MASK)
+#define COMPARE_REG_AND_MASK(REG, COMPARISON_MASK) ( ( *(REG)) & ( COMPARISON_MASK)) ^ ( COMPARISON_MASK)
+
+#define READ_REG(REG, MASK) ( ( *(REG)) & ( MASK) )
 
 //===============================================
 
@@ -17,7 +19,7 @@
 
 #define LIGHT_GREEN_DIODE  0x100U
 #define LIGHT_BLUE_DIODE   0x200U
-#define TURN_OFF_DIODE     0u
+#define TURN_OFF_DIODE     0U
 
 //===============================================
 
@@ -53,9 +55,9 @@
 #define PC8_MODE_BIT 0b11U << (2*8U)
 #define PC9_MODE_BIT 0b11U << (2*9U)
 
-//===============================================
-
-//General purpose output mode macro
+//----------------------------------
+// General purpose output mode macro
+//----------------------------------
 
 #define PC8_GENERAL_OUTPUT_MODE 0b01U << (2*8U)
 #define PC9_GENERAL_OUTPUT_MODE 0b01U << (2*9U)
@@ -69,6 +71,44 @@
 #define GPIOC_CLOCKING_BIT    0x80000U
 #define ENABLE_GPIOC_CLOCKING 0x80000U
 
+//====================LAB 2===========================
+
+#define PC4_5_MODE_BITS 0b1111U << 8U
+#define PC4_5_INPUT_MODE 0b0000U << 8U
+#define PC4_5_TYPE_BIT 0b11U << 4U
+#define PC4_5_OUTPUT_PUSH_PULL_MODE 0b00U << 4U 
+#define PC4_5_PULL_UP_DOWN_BITS 0b1111U << (2U*4U)
+#define PC4_5_PULL_DOWN_MODE 0b1010U << (2U*4U)
+
 //===============================================
+
+#define PA0_TYPE_BIT 1U
+#define PA0_OUTPUT_PUSH_PULL_MODE 0U
+
+//---------------------------------------
+// CONFIGURE THE IO PULL UP OR  PULL DOWN
+//---------------------------------------
+
+#define PA0_PULL_UP_DOWN_BITS 0b11U << (2U*0U)
+#define PA0_PULL_DOWN_MODE 0b10U << (2U*0U)
+
+//--------------------
+// INPUT BITS
+//--------------------
+
+#define PA0_INPUT_BIT 1U << 0U
+#define PC4_INPUT_BIT 1U << 4U
+#define PC5_INPUT_BIT 1U << 5U
+
+//--------------------
+// GPIO configuration
+//--------------------
+
+#define PA0_to_12_MODE_BITS 0x3FFFFFFU
+#define PA0_INPUT_MODE 0x00U
+#define PA1_to_12_GENERAL_OUTPUT_MODE 0x1555554U
+
+//====================LAB 3===========================
+
 
 #endif // STM_MACRO_
