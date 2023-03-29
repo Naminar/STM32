@@ -1,4 +1,4 @@
-# STM32 course
+# STM32 course (updating nowadays)
 "***Sins are a holy thing!***" - someone said.
 
 **A course on working with hardware and interaction at the lowest level. Without any libraries. Only registers, C, assembler and nothing else.**
