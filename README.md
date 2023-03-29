@@ -3,11 +3,9 @@
 
 **A course on working with hardware and interaction at the lowest level. Without any libraries. Only registers, C, assembler and nothing else.**
 ## Content:
-- [How to build and upload](#)
-- [Finished works]()
-- [Configuration]()
-
->[Back to Content](#content)
+- [Configuration](#configuration)
+- [How to build and upload](#how-to-build-and-upload)
+- [Finished works](#finished-works)
 
 ## Configuration
 <p align="center">
@@ -20,6 +18,8 @@
 		style="background-color: transparent;"
 	/>
 <p>
+
+>[Back to Content](#content)
 
 ## How to build and upload
 `make qemu` - *necessary in the first work ''_01_blinkled_''
@@ -38,9 +38,12 @@
 
 ```
 usbipd wsl list
-usbipd wsl attach --busid=1-9
-usbipd wsl detach --busid=1-9
+usbipd wsl attach --busid={num of your port}
+usbipd wsl detach --busid={num of your port}
 ```
+
+>[Back to Content](#content)
+
 ## Finished works
 
 * `01_blinkled` 
@@ -48,6 +51,9 @@ usbipd wsl detach --busid=1-9
 * `02_gpio` 
 	* The game - 'finger'
 * ``03`` - loading ...
+
+>[Back to Content](#content)
+
 ## ©Copyright
 <p align="center">
 	<img src="README/LogoMIPT/mipt1.png" 
