@@ -16,7 +16,7 @@
 
 <p align="center">
 	<img src="README/stm.jpg" 
-		width="70%"		
+		width="40%"		
 		style="background-color: transparent;"
 	/>
 <p>
