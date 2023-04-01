@@ -2,26 +2,6 @@
 #include <stdbool.h>
 #include "../stmMacro.h"
 
-
-//---------------
-// RCC Registers
-//---------------
-
-#define REG_RCC_CR     (volatile uint32_t*)(uintptr_t)0x40021000U // Clock Control Register
-#define REG_RCC_CFGR   (volatile uint32_t*)(uintptr_t)0x40021004U // PLL Configuration Register
-#define REG_RCC_AHBENR (volatile uint32_t*)(uintptr_t)0x40021014U // AHB1 Peripheral Clock Enable Register
-#define REG_RCC_CFGR2  (volatile uint32_t*)(uintptr_t)0x4002102CU // Clock configuration register 2
-
-//----------------
-// GPIO Registers
-//----------------
-
-#define GPIOA_MODER (volatile uint32_t*)(uintptr_t)0x48000000U // GPIO port mode register
-#define GPIOA_TYPER (volatile uint32_t*)(uintptr_t)0x48000004U // GPIO port output type register
-#define GPIOA_PUPDR (volatile uint32_t*)(uintptr_t)0x4800000CU // GPIO port pull-up/pull-down register
-#define GPIOA_IDR   (volatile uint32_t*)(uintptr_t)0x48000010U // GPIO port input  data register
-#define GPIOA_ODR   (volatile uint32_t*)(uintptr_t)0x48000014U // GPIO port output data register
-
 //-------------------
 // 7-segment display
 //-------------------
@@ -101,8 +81,8 @@ void SEG7_push_display_state_to_mc(struct Seg7Display* seg7)
 // RCC configuration
 //-------------------
 
-#define CPU_FREQENCY 48000000U // CPU frequency: 48 MHz
-#define ONE_MILLISECOND CPU_FREQENCY/1000U
+//#define CPU_FREQENCY 48000000U // CPU frequency: 48 MHz
+//#define ONE_MILLISECOND CPU_FREQENCY/1000U
 /*
 void board_clocking_init()
 {
@@ -184,7 +164,6 @@ void board_clocking_init()
     MODIFY_REG(REG_RCC_CFGR, PCLK_PRESCALER, SET_APB_FREQUENCY_TWTYFOUR)
 }
 
-
 void to_get_more_accuracy_pay_2202_2013_2410_3805_1ms()
 {
     for (uint32_t i = 0; i < ONE_MILLISECOND/3U; ++i)
@@ -194,23 +173,6 @@ void to_get_more_accuracy_pay_2202_2013_2410_3805_1ms()
     }
 }
 
-//--------------------
-// GPIO configuration
-//--------------------
-
-#define GPIOA_CLOCKING_BIT    1U << 17U
-#define ENABLE_GPIOA_CLOCKING 1U << 17U
-
-//===============================================
-
-#define GPIOC_OUT   (volatile uint32_t*)(uintptr_t)0x48000814U // GPIO port output data register
-#define GPIOC_MODER (volatile uint32_t*)(uintptr_t)0x48000800U // GPIO port mode register
-#define GPIOC_TYPER (volatile uint32_t*)(uintptr_t)0x48000804U // GPIO port output type register
-#define GPIOC_PUPDR (volatile uint32_t*)(uintptr_t)0x4800080CU
-#define GPIOC_IDR   (volatile uint32_t*)(uintptr_t)0x48000810U // GPIO port input  data register
-
-//===============================================
-
 void board_gpio_init()
 {
     //===================STOP BUTTON & INDICATOR========================
@@ -219,42 +181,38 @@ void board_gpio_init()
     MODIFY_REG(REG_RCC_AHBENR, GPIOA_CLOCKING_BIT, ENABLE_GPIOA_CLOCKING)
     
     // Configure mode register:
-    MODIFY_REG(GPIOA_MODER, PA0_to_12_MODE_BITS, PA0_INPUT_MODE | PA1_to_12_GENERAL_OUTPUT_MODE)
+    MODIFY_REG(GPIOA_MODER, PIN0_to_12_MODE_BITS, PIN0_INPUT_MODE | PIN1_to_12_GENERAL_OUTPUT_MODE)
 
     // Configure type register:
-    MODIFY_REG(GPIOA_TYPER, PA0_TYPE_BIT, PA0_OUTPUT_PUSH_PULL_MODE)
+    MODIFY_REG(GPIOA_TYPER, PIN0_TYPE_BIT, PIN0_OUTPUT_PUSH_PULL_MODE)
 
     // (2) Configure PA0 as button:
     //*GPIOA_MODER |= 0U;
     // ?????
 
     // Configure PA0 as pull-down pin:
-    MODIFY_REG(GPIOA_PUPDR, PA0_PULL_UP_DOWN_BITS, PA0_PULL_DOWN_MODE)
+    MODIFY_REG(GPIOA_PUPDR, PIN0_PULL_UP_DOWN_BITS, PIN0_PULL_DOWN_MODE)
 
     //=====================BUTTON======================
 
     MODIFY_REG(REG_RCC_AHBENR, GPIOC_CLOCKING_BIT, ENABLE_GPIOC_CLOCKING)
     
-    MODIFY_REG(GPIOC_MODER, PC4_5_MODE_BITS, PC4_5_INPUT_MODE)
+    MODIFY_REG(GPIOC_MODER, PIN4_5_MODE_BITS, PIN4_5_INPUT_MODE)
     
-    MODIFY_REG(GPIOC_TYPER, PC4_5_TYPE_BIT, PC4_5_OUTPUT_PUSH_PULL_MODE)
+    MODIFY_REG(GPIOC_TYPER, PIN4_5_TYPE_BIT, PIN4_5_OUTPUT_PUSH_PULL_MODE)
     
-    MODIFY_REG(GPIOC_PUPDR, PC4_5_PULL_UP_DOWN_BITS, PC4_5_PULL_DOWN_MODE)
+    MODIFY_REG(GPIOC_PUPDR, PIN4_5_PULL_UP_DOWN_BITS, PIN4_5_PULL_DOWN_MODE)
     
     //===================LIGHTS========================
     
-    MODIFY_REG(GPIOC_MODER, PC8_MODE_BIT, PC8_GENERAL_OUTPUT_MODE)
+    MODIFY_REG(GPIOC_MODER, PIN8_MODE_BIT, PIN8_GENERAL_OUTPUT_MODE)
     
-    MODIFY_REG(GPIOC_TYPER, PC8_TYPE_BIT, PC8_OUTPUT_PUSH_PULL_MODE)
+    MODIFY_REG(GPIOC_TYPER, PIN8_TYPE_BIT, PIN8_OUTPUT_PUSH_PULL_MODE)
 
-    MODIFY_REG(GPIOC_MODER, PC9_MODE_BIT, PC9_GENERAL_OUTPUT_MODE)
+    MODIFY_REG(GPIOC_MODER, PIN9_MODE_BIT, PIN9_GENERAL_OUTPUT_MODE)
 
-    MODIFY_REG(GPIOC_TYPER, PC9_TYPE_BIT, PC9_OUTPUT_PUSH_PULL_MODE)
+    MODIFY_REG(GPIOC_TYPER, PIN9_TYPE_BIT, PIN9_OUTPUT_PUSH_PULL_MODE)
 }
-
-//------
-// Main
-//------
 
 typedef struct button {
 
@@ -264,8 +222,19 @@ typedef struct button {
 
 } button;
 
-void instant_button_activation(button* this_button);
-void general_button_activation(button* this_button);
+typedef struct shine_setting {
+
+    uint32_t light_index;
+
+    bool user; // 0 or 1
+
+    bool mode; // 0 - light is off, 1 - light is on
+
+} shine_setting;
+
+void instant_button_activation  (button* this_button);
+void general_button_activation  (button* this_button);
+void step_system_butt_activation(button* this_button);
 
 void totally_accurate_quantum_femtosecond_precise_super_delay_3000_1ms()
 {
@@ -275,6 +244,10 @@ void totally_accurate_quantum_femtosecond_precise_super_delay_3000_1ms()
         __asm__ volatile("nop");
     }
 }
+
+//------
+// Main
+//------
 
 int main()
 {
@@ -286,6 +259,12 @@ int main()
     struct Seg7Display seg7 =
     {
         .number = 0
+    };
+
+    shine_setting shine_box = { 
+        .light_index = 0U, 
+        .user = 0, 
+        .mode = 0
     };
 
     uint32_t tick = 0;
@@ -303,13 +282,14 @@ int main()
         saved_right_pressed = right_button.pressed;
         
         // Update button state:
-        stop_button.active  = READ_REG(GPIOA_IDR, PA0_INPUT_BIT); 
-        left_button.active  = READ_REG(GPIOC_IDR, PC4_INPUT_BIT); 
-        right_button.active = READ_REG(GPIOC_IDR, PC5_INPUT_BIT);
+        stop_button.active  = READ_REG(GPIOA_IDR, PIN0_INPUT_BIT); 
+        left_button.active  = READ_REG(GPIOC_IDR, PIN4_INPUT_BIT); 
+        right_button.active = READ_REG(GPIOC_IDR, PIN5_INPUT_BIT);
 
-        general_button_activation(&stop_button);
-        instant_button_activation(&left_button);
-        instant_button_activation(&right_button);
+        
+        step_system_butt_activation (&stop_button); // general_button_activation(&stop_button); 
+        step_system_butt_activation (&left_button); // instant_button_activation(&left_button);
+        step_system_butt_activation (&right_button);// instant_button_activation(&right_button);
 
         if ( saved_left_pressed && !saved_right_pressed && right_button.pressed )
         {
@@ -318,7 +298,11 @@ int main()
             left_button.pressed  = 0U;
             right_button.pressed = 0U;
 
-            for (uint32_t i = 0; i < 100U; i++)
+            shine_box.light_index   = 100U; 
+            shine_box.user          = 1; 
+            shine_box.mode          = 1;            
+
+            /*for (uint32_t i = 0; i < 100U; i++)
             {        
                 if (i % 20 >= 1)
                 {                
@@ -337,7 +321,7 @@ int main()
             }
 
             MODIFY_REG(GPIOC_OUT, SET_BLUE_DIODE_BIT, TURN_OFF_DIODE)
-            MODIFY_REG(GPIOC_OUT, SET_GREEN_DIODE_BIT, TURN_OFF_DIODE)
+            MODIFY_REG(GPIOC_OUT, SET_GREEN_DIODE_BIT, TURN_OFF_DIODE)*/
         }
 
         if ( saved_right_pressed && !saved_left_pressed && left_button.pressed )
@@ -347,9 +331,9 @@ int main()
             left_button.pressed  = 0U;
             right_button.pressed = 0U;
 
-            for (uint32_t i = 0; i < 100U; i++)
+            /*for ( uint32_t i = 0; i < 100U; i++ )
             {        
-                if (i % 20 < 1)
+                if ( i % 20 < 1 )
                 {                
                     MODIFY_REG(GPIOC_OUT, SET_GREEN_DIODE_BIT, LIGHT_GREEN_DIODE)
 
@@ -366,7 +350,62 @@ int main()
             }
 
             MODIFY_REG(GPIOC_OUT, SET_BLUE_DIODE_BIT, TURN_OFF_DIODE)
-            MODIFY_REG(GPIOC_OUT, SET_GREEN_DIODE_BIT, TURN_OFF_DIODE)
+            MODIFY_REG(GPIOC_OUT, SET_GREEN_DIODE_BIT, TURN_OFF_DIODE)*/
+
+            shine_box.light_index   = 100U; 
+            shine_box.user          = 0; 
+            shine_box.mode          = 1;
+        }
+
+        if ( shine_box.mode == 1 )
+        {
+            if ( shine_box.user == 0 ) 
+            {        
+                if ( shine_box.light_index % 20 >= 1 )
+                {                
+                    MODIFY_REG(GPIOC_OUT, SET_GREEN_DIODE_BIT, LIGHT_GREEN_DIODE)
+
+                    MODIFY_REG(GPIOC_OUT, SET_BLUE_DIODE_BIT, TURN_OFF_DIODE)
+                }
+                else
+                {
+                    MODIFY_REG(GPIOC_OUT, SET_BLUE_DIODE_BIT, LIGHT_BLUE_DIODE)
+                
+                    MODIFY_REG(GPIOC_OUT, SET_GREEN_DIODE_BIT, TURN_OFF_DIODE)
+                }
+                
+            }
+            else
+            {
+                if ( shine_box.light_index % 20 < 1 )
+                {                
+                    MODIFY_REG(GPIOC_OUT, SET_GREEN_DIODE_BIT, LIGHT_GREEN_DIODE)
+
+                    MODIFY_REG(GPIOC_OUT, SET_BLUE_DIODE_BIT, TURN_OFF_DIODE)
+                }
+                else
+                {
+                    MODIFY_REG(GPIOC_OUT, SET_BLUE_DIODE_BIT, LIGHT_BLUE_DIODE)
+                
+                    MODIFY_REG(GPIOC_OUT, SET_GREEN_DIODE_BIT, TURN_OFF_DIODE)
+                }
+            }
+
+            --shine_box.light_index;
+
+            if ( shine_box.light_index == 0)
+            {
+                shine_box.mode = 0;
+
+                // SET OFF ALL LIGHTS
+                MODIFY_REG(GPIOC_OUT, SET_BLUE_DIODE_BIT, TURN_OFF_DIODE)
+                MODIFY_REG(GPIOC_OUT, SET_GREEN_DIODE_BIT, TURN_OFF_DIODE)
+            }
+        }
+
+        if ( stop_button.pressed )
+        {
+            seg7.number = 0U;
         }
 
         // Render display state:
@@ -421,5 +460,51 @@ void general_button_activation(button* this_button)
     else
     {   
         this_button->saturation = 0U; //<-- NO RESET OF PRESSED
+    }
+}
+
+//-------------------------
+// hysteresis - step system 
+//-------------------------
+
+//================= 1__1 ==================== 6U
+//-------------- 1__|--|__1 ----------------- 5U
+//            0__|        |__1
+//         0__|              |__1
+//      0__|                     |__1  
+//-- 0__|---------------------------|__0 ----- 1U
+//0__|=================================|__0 == 0U
+
+void step_system_butt_activation(button* this_button)
+{
+    if ( this_button->active )
+    {
+        if ( this_button->saturation < 6U )
+        {
+            this_button->saturation += 1U;
+        }
+        /*else
+        {
+            this_button->pressed = 1U;
+            
+            this_button->saturation = 0U; //<-- RESET OF SATURATION
+        }*/
+
+        if ( this_button->saturation == 5U)
+            this_button->pressed = 1U;
+    }
+    else
+    {
+        if ( this_button->saturation > 0U )
+        {
+            this_button->saturation -= 1U;
+        }
+
+        /*this_button->pressed = 0U; //<-- RESET OF PRESSED
+        
+        this_button->saturation = 0U; */
+
+        if ( this_button->saturation == 1U)
+            this_button->pressed = 0U; 
     }
 }

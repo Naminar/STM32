@@ -73,40 +73,96 @@
 
 //====================LAB 2===========================
 
-#define PC4_5_MODE_BITS 0b1111U << 8U
-#define PC4_5_INPUT_MODE 0b0000U << 8U
-#define PC4_5_TYPE_BIT 0b11U << 4U
-#define PC4_5_OUTPUT_PUSH_PULL_MODE 0b00U << 4U 
-#define PC4_5_PULL_UP_DOWN_BITS 0b1111U << (2U*4U)
-#define PC4_5_PULL_DOWN_MODE 0b1010U << (2U*4U)
+#define PIN4_5_MODE_BITS 0b1111U << 8U
+#define PIN4_5_INPUT_MODE 0b0000U << 8U
+#define PIN4_5_TYPE_BIT 0b11U << 4U
+#define PIN4_5_OUTPUT_PUSH_PULL_MODE 0b00U << 4U 
+#define PIN4_5_PULL_UP_DOWN_BITS 0b1111U << (2U*4U)
+#define PIN4_5_PULL_DOWN_MODE 0b1010U << (2U*4U)
 
 //===============================================
 
-#define PA0_TYPE_BIT 1U
-#define PA0_OUTPUT_PUSH_PULL_MODE 0U
+#define PIN0_TYPE_BIT 1U
+#define PIN0_OUTPUT_PUSH_PULL_MODE 0U
 
 //---------------------------------------
 // CONFIGURE THE IO PULL UP OR  PULL DOWN
 //---------------------------------------
 
-#define PA0_PULL_UP_DOWN_BITS 0b11U << (2U*0U)
-#define PA0_PULL_DOWN_MODE 0b10U << (2U*0U)
+#define PIN0_PULL_UP_DOWN_BITS 0b11U << (2U*0U)
+#define PIN0_PULL_DOWN_MODE 0b10U << (2U*0U)
 
 //--------------------
 // INPUT BITS
 //--------------------
 
-#define PA0_INPUT_BIT 1U << 0U
-#define PC4_INPUT_BIT 1U << 4U
-#define PC5_INPUT_BIT 1U << 5U
+#define PIN0_INPUT_BIT 1U << 0U
+#define PIN4_INPUT_BIT 1U << 4U
+#define PIN5_INPUT_BIT 1U << 5U
 
 //--------------------
 // GPIO configuration
 //--------------------
 
-#define PA0_to_12_MODE_BITS 0x3FFFFFFU
-#define PA0_INPUT_MODE 0x00U
-#define PA1_to_12_GENERAL_OUTPUT_MODE 0x1555554U
+#define PIN0_to_12_MODE_BITS 0x3FFFFFFU
+#define PIN0_INPUT_MODE 0x00U
+#define PIN1_to_12_GENERAL_OUTPUT_MODE 0x1555554U
+
+//---------------
+// RCC Registers
+//---------------
+
+#define REG_RCC_CR     (volatile uint32_t*)(uintptr_t)0x40021000U // Clock Control Register
+#define REG_RCC_CFGR   (volatile uint32_t*)(uintptr_t)0x40021004U // PLL Configuration Register
+#define REG_RCC_AHBENR (volatile uint32_t*)(uintptr_t)0x40021014U // AHB1 Peripheral Clock Enable Register
+#define REG_RCC_CFGR2  (volatile uint32_t*)(uintptr_t)0x4002102CU // Clock configuration register 2
+
+//----------------
+// GPIO Registers
+//----------------
+
+#define GPIOA_MODER (volatile uint32_t*)(uintptr_t)0x48000000U // GPIO port mode register
+#define GPIOA_TYPER (volatile uint32_t*)(uintptr_t)0x48000004U // GPIO port output type register
+#define GPIOA_PUPDR (volatile uint32_t*)(uintptr_t)0x4800000CU // GPIO port pull-up/pull-down register
+#define GPIOA_IDR   (volatile uint32_t*)(uintptr_t)0x48000010U // GPIO port input  data register
+#define GPIOA_ODR   (volatile uint32_t*)(uintptr_t)0x48000014U // GPIO port output data register
+
+//--------------------
+// GPIO configuration
+//--------------------
+
+#define GPIOA_CLOCKING_BIT    1U << 17U
+#define ENABLE_GPIOA_CLOCKING 1U << 17U
+
+//----------------
+// GPIO Registers
+
+
+#define GPIOC_OUT   (volatile uint32_t*)(uintptr_t)0x48000814U // GPIO port output data register
+#define GPIOC_MODER (volatile uint32_t*)(uintptr_t)0x48000800U // GPIO port mode register
+#define GPIOC_TYPER (volatile uint32_t*)(uintptr_t)0x48000804U // GPIO port output type register
+#define GPIOC_PUPDR (volatile uint32_t*)(uintptr_t)0x4800080CU
+#define GPIOC_IDR   (volatile uint32_t*)(uintptr_t)0x48000810U // GPIO port input  data register
+
+//------------------------------------------
+// A FEW OF THE WORK 1 IMPROVED TO UNIVERSAL
+//------------------------------------------
+
+#define PIN8_MODE_BIT 0b11U << (2*8U)
+#define PIN9_MODE_BIT 0b11U << (2*9U)
+
+//----------------------------------
+// General purpose output mode macro
+//----------------------------------
+
+#define PIN8_GENERAL_OUTPUT_MODE 0b01U << (2*8U)
+#define PIN9_GENERAL_OUTPUT_MODE 0b01U << (2*9U)
+
+#define PIN8_TYPE_BIT 0b1U << 8U
+#define PIN9_TYPE_BIT 0b1U << 9U
+
+#define PIN8_OUTPUT_PUSH_PULL_MODE 0b0U << 8U
+#define PIN9_OUTPUT_PUSH_PULL_MODE 0b0U << 9U
 
 //====================LAB 3===========================
 
