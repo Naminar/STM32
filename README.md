@@ -9,7 +9,7 @@
 - [Library of different schemes](#library-of-different-schemes)
 ## Configuration
 <p align="center">
- 	<b>stm32f0xx</b>    
+ 	<b>stm32f0xx(STM32F051)</b>    
  </p>
 
 <p align="center">
