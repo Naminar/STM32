@@ -9,7 +9,7 @@
 - [Library of different schemes](#library-of-different-schemes)
 ## Configuration
 <p align="center">
- 	<b>stm32f0xx(STM32F051)</b>    
+ 	<b>stm32f0xx (STM32F051)</b>    
  </p>
 
 <p align="center">
@@ -46,18 +46,25 @@ usbipd wsl detach --busid={num of your port}
 
 ## Finished works
 
-* [`01_blinkled`]() 
+* [`01_blinkled`](#) 
 	* Emulation of alternating ignition of diodes on STM32 using QEMU on linux.
-* [`02_gpio`]()
-	* The game - 'finger'.
+* [`02_gpio`](#)
+	* The game - "finger".
 	* Hysteresis - step system for buttons.
-* [`03`]() - Interrupts coming soon...
-
+* [`03_systick`](#)
+	* Testing the interrupt circuit for diodes..
+* [`03_gpio_systick`](#) - Interrupts coming soon...
+	* Added interrupts for "finger" (from `02_gpio`)  
 >[Back to Content](#content)
 
 ## Library of different schemes
 
+### 02_gpio
+
 ![](README/button.png)
+>[Back to `02_gpio`](#)
+
+---
 
 >[Back to Content](#content)
 
