@@ -2,6 +2,15 @@
 #ifndef STM_MACRO_
 #define STM_MACRO_
 
+/* NEWS AND NOTES:::::::
+
+    HAVE A TRANSFORMATION IN DEFINE LIKE 
+
+    PC8 -> PIN8 
+    PC9 -> PIN9
+    
+    CAN HAVE SOME PROBLEMS WITH OTHER LABS
+*/
 //====================LAB 1===========================
 
 // All unmarked bits of the MODIFYMASK REG register will remain unchanged
@@ -14,11 +23,11 @@
 
 //===============================================
 
-#define SET_GREEN_DIODE_BIT  ( 0x100U)
-#define SET_BLUE_DIODE_BIT   ( 0x200U)
+#define SET_GREEN_DIODE_BIT  ( 0x200U)
+#define SET_BLUE_DIODE_BIT   ( 0x100U)
 
-#define LIGHT_GREEN_DIODE  ( 0x100U)
-#define LIGHT_BLUE_DIODE   ( 0x200U)
+#define LIGHT_GREEN_DIODE  ( 0x200U)
+#define LIGHT_BLUE_DIODE   ( 0x100U)
 #define TURN_OFF_DIODE     ( 0U)
 
 //===============================================
@@ -174,5 +183,23 @@
 #define ZERO ( 0U)
 
 #define RELOAD_BITS ( 0x00FFFFFFU)
+
+//----------------
+// GPIO Registers
+//----------------
+
+#define GPIOC_ODR   (volatile uint32_t*)(uintptr_t)0x48000814U // GPIO port output data register
+#define GPIOC_BSRR  (volatile uint32_t*)(uintptr_t)0x48000818U
+
+//-------------------
+// SysTick registers
+//-------------------
+
+#define SYSTICK_CSR   (volatile uint32_t*)(uintptr_t)0xE000E010U // SysTick Control and Status Register
+#define SYSTICK_RVR   (volatile uint32_t*)(uintptr_t)0xE000E014U // SysTick Reload Value Register
+#define SYSTICK_CVR   (volatile uint32_t*)(uintptr_t)0xE000E018U // SysTick Current Value Register
+#define SYSTICK_CALIB (volatile uint32_t*)(uintptr_t)0xE000E01CU // SysTick Calibration Value Register
+
+
 
 #endif // STM_MACRO_
