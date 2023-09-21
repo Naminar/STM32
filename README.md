@@ -42,6 +42,13 @@ usbipd wsl attach --busid={num of your port}
 usbipd wsl detach --busid={num of your port}
 ```
 
+example:
+```
+usbipd wsl list
+usbipd wsl attach --busid=1-9
+usbipd wsl detach --busid=1-9
+```
+
 >[Back to Content](#content)
 
 ## Finished works
